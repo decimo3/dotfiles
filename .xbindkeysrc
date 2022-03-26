@@ -1,0 +1,7 @@
+#command1
+"xdotool key Page_Up"
+  m:0x0 + b:9
+
+#command2
+"xdotool key Page_Down"
+  m:0x0 + b:8
