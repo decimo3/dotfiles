@@ -14,8 +14,10 @@ onedrive () {
 }
 asdf () {
   git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
-  ". $HOME/.asdf/asdf.sh" >> ~/.zshrc
-  source ~/.zshrc
+  echo ". $HOME/.asdf/asdf.sh" >> ~/.zshrc
 }
-
-
+powerlevel10k () {
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
+  echo "source $HOME/.powerlevel10k/powerlevel10k.zsh-theme" >> ~/.zshrc
+}
+source ~/.zshrc
