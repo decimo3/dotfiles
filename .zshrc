@@ -145,25 +145,23 @@ function install () {
   sudo "$HOME/Downloads/NVIDIA-Linux-x86_64-390.147.run"
 }
 function dotfiles () {
-#  if "$1" -eq "--reverse"
-#  then
-#    CASA="$HOME/Documents/Development/dotfiles"
-#    REPO="$HOME"
-#  else
-    CASA="$HOME"
-    REPO="$HOME/Documents/Development/dotfiles"
-#  fi
-  cp -u "$CASA/.gitconfig" "$REPO/.gitconfig"
-  cp -u "$CASA/.nvidia-settings-rc" "$REPO/.nvidia-settings-rc"
-  cp -u "$CASA/.p10k.zsh" "$REPO/.p10k.zsh"
-  cp -u "$CASA/.profile" "$REPO/.profile"
-  cp -u "$CASA/.tool-versions" "$REPO/.tool-versions"
-  cp -u "$CASA/.vuerc" "$REPO/.vuerc"
-  cp -u "$CASA/.xbindkeysrc" "$REPO/.xbindkeys"
-  cp -u "$CASA/.Xmodmap" "$REPO/.Xmodmap"
-  cp -u "$CASA/.zshrc" "$REPO/.zshrc"
-  cp -u "$CASA/setup.sh" "$REPO/setup.sh"
-  cp -u "$CASA/.bashrc" "$REPO/.bashrc"
+  test "$1" = "reverse"
+  #return 0 if true
+  case $? in
+    0)CASA="$HOME/Documents/Development/dotfiles";REPO="$HOME";echo "para pasta do usuário";;
+    1)CASA="$HOME";REPO="$HOME/Documents/Development/dotfiles";echo "para pasta de backup";;
+  esac
+  cp -uv "$CASA/.gitconfig" "$REPO/.gitconfig"
+  cp -uv "$CASA/.nvidia-settings-rc" "$REPO/.nvidia-settings-rc"
+  cp -uv "$CASA/.p10k.zsh" "$REPO/.p10k.zsh"
+  cp -uv "$CASA/.profile" "$REPO/.profile"
+  cp -uv "$CASA/.tool-versions" "$REPO/.tool-versions"
+  cp -uv "$CASA/.vuerc" "$REPO/.vuerc"
+  cp -uv "$CASA/.xbindkeysrc" "$REPO/.xbindkeys"
+  cp -uv "$CASA/.Xmodmap" "$REPO/.Xmodmap"
+  cp -uv "$CASA/.zshrc" "$REPO/.zshrc"
+  cp -uv "$CASA/setup.sh" "$REPO/setup.sh"
+  cp -uv "$CASA/.bashrc" "$REPO/.bashrc"
 }
 function newerthat () {
   if "$1" -nt "$2"
