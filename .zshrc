@@ -99,6 +99,10 @@ plugins=(git)
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source ~/.powerlevel10k/powerlevel10k.zsh-theme
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -109,13 +113,22 @@ plugins=(git)
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias speak="speak-ng -v mb/mb-br4 -s 124 -a 100"
 alias poweroff="systemctl poweroff"
-alias upper="echo \"$1\" | tr a-z A-Z"
 alias abnt2="setxkbmap -model abnt2 -layout br -variant abnt2"
 alias update="sudo ntpdate -u time.cloudflare.com"
 alias onedrive="onedrive --synchronize"
+alias mine="minetest --server --worldname 'mundo novo'"
+alias disk="ncdu $HOME"
+alias build="dotnet publish -r linux-x64 --no-self-contained /p:PublishSingleFile=true"
+alias ls="exa -la --icons --group-directories-first"
+alias cat="bat"
+alias xclip="xclip -selection c"
+alias token="sudo cat ~/token | xclip -selection c"
 
 #xmodmap -e "pointer = 1 3 2"
 
+function upper() {
+  echo "$1" | tr a-z A-Z
+}
 function light () {
   DEV=`brightnessctl -l | grep -Eom 1 "[0-9]{1,3}"`
   brightnessctl -d 'input'$DEV'::scrolllock' set $1
@@ -123,16 +136,50 @@ function light () {
 function backup () {
   rsync -av "/run/media/$USER/$1/" "$HOME/Backup/$1"
 }
-
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$HOME/.dotnet
-export RUST=$PATH:$HOME/.asdf/installs/rust/1.58.1/bin
-. /home/ruanf/.asdf/asdf.sh
+function fmount () {
+  sudo mkdir "/run/media/$USER"
+  sudo mkdir "/run/media/$USER/$1"
+  sudo mount "/dev/$1" "/run/media/$USER/$1"
+}
+function install () {
+  sudo "$HOME/Downloads/NVIDIA-Linux-x86_64-390.147.run"
+}
+function dotfiles () {
+#  if "$1" -eq "--reverse"
+#  then
+#    CASA="$HOME/Documents/Development/dotfiles"
+#    REPO="$HOME"
+#  else
+    CASA="$HOME"
+    REPO="$HOME/Documents/Development/dotfiles"
+#  fi
+  cp -u "$CASA/.gitconfig" "$REPO/.gitconfig"
+  cp -u "$CASA/.nvidia-settings-rc" "$REPO/.nvidia-settings-rc"
+  cp -u "$CASA/.p10k.zsh" "$REPO/.p10k.zsh"
+  cp -u "$CASA/.profile" "$REPO/.profile"
+  cp -u "$CASA/.tool-versions" "$REPO/.tool-versions"
+  cp -u "$CASA/.vuerc" "$REPO/.vuerc"
+  cp -u "$CASA/.xbindkeysrc" "$REPO/.xbindkeys"
+  cp -u "$CASA/.Xmodmap" "$REPO/.Xmodmap"
+  cp -u "$CASA/.zshrc" "$REPO/.zshrc"
+  cp -u "$CASA/setup.sh" "$REPO/setup.sh"
+  cp -u "$CASA/.bashrc" "$REPO/.bashrc"
+}
+function newerthat () {
+  if "$1" -nt "$2"
+  then
+    echo "$1 is newer that $2"
+  else
+    echo "$1 is older that $2"
+  fi
+}
+# fmount 16E06587E0656DC5
+export PATH=$PATH:$HOME/.asdf/installs/rust/1.58.1/bin
+export PATH=$PATH:$HOME/Aplications/apacheMaven/bin
+export PATH=$PATH:/opt/gradle/bin
+. ~/.asdf/asdf.sh
+. ~/.asdf/plugins/dotnet-core/set-dotnet-home.zsh
+. ~/.asdf/plugins/java/set-java-home.zsh
 abnt2
 light 1
 xbindkeys
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source ~/.powerlevel10k/powerlevel10k.zsh-theme
-export PATH=/home/ruanf/.asdf/shims:/home/ruanf/.asdf/bin:/home/ruanf/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin:/home/ruanf/.dotnet:/home/ruanf/.cargo/bin
