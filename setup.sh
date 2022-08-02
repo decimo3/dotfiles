@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install basic programs
-sudo pacman -S git zsh brightnessctl wine chromium sublime-text-dev neovim xclip make
+sudo pacman -S git zsh brightnessctl wine chromium sublime-text-4 neovim xclip make xbindkeys xdotool
 
 # Install asdf-vm for language download
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1 && echo ". $HOME/.asdf/asdf.sh" >> ~/.zshrc
