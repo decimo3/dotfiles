@@ -19,7 +19,7 @@ asdf plugin-add rust https://github.com/code-lever/asdf-rust.git && asdf install
 asdf plugin-add python https://github.com/danhper/asdf-python.git && asdf install python 3.10.5 && asdf global python 3.10.5
 
 # Install programming language 'Dotnet'
-asdf plugin-add dotnet-core https://github.com/emersonsoares/asdf-dotnet-core.git && asdf install dotnet-core 6.0.302 && asdf global 6.0.302 && echo ". ~/.asdf/plugins/dotnet-core/set-dotnet-home.zsh" >> ~/.zshrc
+asdf plugin-add dotnet https://github.com/hensou/asdf-dotnet && asdf install dotnet 6.0.302 && asdf global dotnet 6.0.302
 
 # Install PowerLevel10k command line theme for zshell
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k && echo "source $HOME/.powerlevel10k/powerlevel10k.zsh-theme" >> ~/.zshrc
